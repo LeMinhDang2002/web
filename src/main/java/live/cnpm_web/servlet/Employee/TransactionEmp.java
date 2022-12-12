@@ -42,11 +42,11 @@ public class TransactionEmp extends HttpServlet {
             String url = "/WEB-INF/employee/transaction/tran-info-customer.jsp";
             String identify = req.getParameter("identify");
             Customer customer = AccountDB.selectBySSN(identify);
-            TransactionAccount transactionAccount = customer.getTransactionAccount();
             if (customer == null){
                 resp.sendRedirect("/transaction_emp");
             }
             else {
+                TransactionAccount transactionAccount = customer.getTransactionAccount();
                 DecimalFormat df = new DecimalFormat("#,###.##");
                 req.setAttribute("account", customer);
                 req.setAttribute("balance",df.format((Double) transactionAccount.getBalance()) );
